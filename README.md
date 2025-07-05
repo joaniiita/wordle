@@ -1,4 +1,4 @@
-#🎯 Wordle Clone (JavaScript Web Version)
+# 🎯 Wordle Clone (JavaScript Web Version)
 
 A browser-based clone of the popular Wordle game. Players have 6 attempts to guess a hidden 5-letter word. After each guess, the tiles provide feedback:
 

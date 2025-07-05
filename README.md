@@ -6,7 +6,7 @@ A browser-based clone of the popular Wordle game. Players have 6 attempts to gue
 - 🟨 Yellow if the letter is in the word but in the wrong position,
 - ⬜️ Gray if the letter is not in the word.
 
-# ✨Features:
+## ✨Features:
 
 - Animated tile feedback (flip and bounce effects)
 - Word validation against a dictionary
@@ -15,3 +15,17 @@ A browser-based clone of the popular Wordle game. Players have 6 attempts to gue
 
 Built with vanilla JavaScript, HTML, and CSS — no external libraries!
 
+## 🧰 Tech Stack
+
+- **HTML5** – Game layout and canvas rendering  
+- **CSS3** – Basic styling  
+- **JavaScript** – Game logic, and user input
+
+---
+
+## 🚀 How to Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/wordle.git
+   cd wordle

@@ -14,7 +14,8 @@ const wordleWords = [
   "TABLE", "GLOBE", "PIANO", "BLEND", "SHINE", "CLOUD", "FROST", "BRICK", "TRACE", "GHOST",
   "SWEET", "DREAM", "LAUGH", "BEACH", "SMILE", "JUICE", "PLANE", "LIGHT", "BREAD", "SCORE",
   "STORM", "WHALE", "PLANT", "DRIFT", "SPEAK", "SPICE", "HOVER", "BLOOM", "SKATE", "FLOCK",
-  "TRUTH", "CRISP", "TRICK", "ZEBRA", "NOBLE", "TRACK", "BLINK", "SHARP", "MATCH", "SPOON"
+  "TRUTH", "CRISP", "TRICK", "ZEBRA", "NOBLE", "TRACK", "BLINK", "SHARP", "MATCH", "SPOON",
+  "HAPPY",
 ];
 
 const validWords = [
@@ -37,7 +38,12 @@ const validWords = [
   "MAYOR", "STRAW", "CHAIN", "FAIRY", "CLOCK",
   "FRESH", "STICK", "BLACK", "BRICK", "SOUTH",
   "NORTH", "EASTS", "WESTS", "TIGER", "ZEBRA",
-  "RIVER", "PEACH", "BUNNY", "NOISE", "SLEEP"
+  "RIVER", "PEACH", "BUNNY", "NOISE", "SLEEP",
+    "HAPPY", "APPLE", "GRAPE", "CHAIR", "FLAME", "SUGAR", "BRAVE", "CRANE", "SHINY", "PROUD", "SWING",
+    "TABLE", "GLOBE", "PIANO", "BLEND", "SHINE", "CLOUD", "FROST", "BRICK", "TRACE", "GHOST",
+    "SWEET", "DREAM", "LAUGH", "BEACH", "SMILE", "JUICE", "PLANE", "LIGHT", "BREAD", "SCORE",
+    "STORM", "WHALE", "PLANT", "DRIFT", "SPEAK", "SPICE", "HOVER", "BLOOM", "SKATE", "FLOCK",
+    "TRUTH", "CRISP", "TRICK", "ZEBRA", "NOBLE", "TRACK", "BLINK", "SHARP", "MATCH", "SPOON",
 ];
 
 
@@ -165,7 +171,6 @@ function processInput(e){
         col = 0;
         userWord = '';
     }
-        
 
     if(!isGameOver && row === height){
         isGameOver = true;
@@ -174,15 +179,17 @@ function processInput(e){
 }
 
 function update(){
+    console.log(word);
     let correct = 0;
-    let letterCount = {}; 
+    let letterCount = new Map();
+    let letter;
 
     for (let i = 0; i < word.length; i++){
         letter = word[i];
-        if ( letterCount[letter]) {
-            letterCount[letter] += 1;
+        if ( letterCount.has(letter)) {
+            letterCount.set(letter, letterCount.get(letter) + 1);
         } else {
-            letterCount[letterCount] = 1;
+            letterCount.set(letter, 1);
         }
     }
 
@@ -192,7 +199,7 @@ function update(){
         let letter = currentTile.innerHTML;
 
         // Is it in the correct position?
-        if (word[c] == letter){
+        if (word[c] === letter){
             currentTile.classList.add('correct');
 
             let keyTile = document.getElementById('Key' + letter);
@@ -200,14 +207,17 @@ function update(){
             keyTile.classList.remove('present');
             keyTile.classList.add('correct');
             correct++;
-            letterCount[letter]--;
-        } 
-
-        if (correct == width) {
-            isGameOver = true;
+            letterCount.set(letter, letterCount.get(letter) + 1);
         }
+
+          if (correct === width) {
+              isGameOver = true;
+              document.getElementById('answer').innerHTML = `The word was ${word}!`;
+          }
         
     }
+
+
 
     // Go again and mark which ones are present but in wrong position
 
@@ -215,16 +225,17 @@ function update(){
         let currentTile = document.getElementById(row.toString() + '-' + c.toString());
         let letter = currentTile.innerHTML;
         let keyTile = document.getElementById('Key' + letter);
+
         if(!currentTile.classList.contains('correct')){
             // Is it in the correct position?
-            if (word.includes(letter) && letterCount[letter] > 0){ // Is the letter present in the word?
+            if (word.includes(letter) && letterCount.get(letter) > 0){ // Is the letter present in the word?
                 currentTile.classList.add('present');
                 
                 if(!keyTile.classList.contains('correct')) {
                     keyTile.classList.add('present');
-                } 
+                }
 
-                letterCount[letter]--;
+                letterCount.set(letter, letterCount.get(letter) - 1);
             } else {
                 currentTile.classList.add('absent');
                 keyTile.classList.add('key-absent');

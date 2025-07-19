@@ -121,6 +121,8 @@ hr{
     justify-content: center;
     align-items: center;
     padding: 7px 5px;
+
+    border-radius: 4px;
 }
 
 #Enter.key-tile{
